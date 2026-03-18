@@ -1,7 +1,14 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === "POST") {
-    console.log("Payment approved:", req.body);
-    return res.status(200).json({ success: true });
+    const { paymentId } = req.body;
+
+    console.log("Approving payment:", paymentId);
+
+    // IMPORTANT: respond fast to Pi
+    return res.status(200).json({
+      result: "approved"
+    });
   }
+
   res.status(405).json({ error: "Method not allowed" });
 }
